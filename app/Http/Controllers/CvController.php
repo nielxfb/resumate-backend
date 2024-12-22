@@ -14,7 +14,7 @@ class CvController extends Controller
 
     public function getByAnalysisId(Request $request)
     {
-        $cv = Cv::where('analysis_id', $request->analysis_id)->get();
+        $cv = Cv::where('analysis_id', $request->analysisId)->get();
         return response()->json($cv);
     }
 

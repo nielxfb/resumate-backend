@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('skill_rating');
             $table->float('soft_skill_rating');
             $table->float('language_rating');
+            $table->foreignId('analysis_id')->constrained('analyses');
             $table->timestamps();
         });
     }

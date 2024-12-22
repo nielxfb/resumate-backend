@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Analysis;
+use App\Models\Cv;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AnalysisController extends Controller
 {
@@ -14,26 +16,44 @@ class AnalysisController extends Controller
 
     public function getByUserId(Request $request)
     {
-        $analysis = Analysis::where('user_id', $request->user_id)->get();
+        $analysis = Analysis::where('user_id', $request->userId)->get();
+        $analysis->load('cvs');
         return response()->json($analysis);
     }
 
     public function saveResult(Request $request)
     {
-        $analysis = new Analysis();
-        $analysis->user_id = $request->user_id;
-        $analysis->date = $request->date;
-        $analysis->education_target = $request->education_target;
-        $analysis->gpa_target = $request->gpa_target;
-        $analysis->job_target = $request->job_target;
-        $analysis->years_target = $request->years_target;
-        $analysis->experience_target = $request->experience_target;
-        $analysis->skill_target = $request->skill_target;
-        $analysis->soft_skill_target = $request->soft_skill_target;
-        $analysis->language_target = $request->language_target;
-        $analysis->cv_id = $request->cv_id;
-        $analysis->save();
+        Analysis::insert([
+            'user_id' => $request->userId,
+            'date' => $request->date,
+            'education_target' => $request->educationTarget,
+            'gpa_target' => $request->gpaTarget,
+            'job_target' => $request->jobTarget,
+            'years_target' => $request->yearsTarget,
+            'experience_target' => $request->experienceTarget,
+            'skill_target' => $request->skillTarget,
+            'soft_skill_target' => $request->softSkillTarget,
+            'language_target' => $request->languageTarget,
+        ]);
 
-        return response()->json(['message' => 'Analysis created', 'analysis' => $analysis], 201);
+        $analysisId = Analysis::latest('id')->first()->id;
+
+        foreach ($request->cvs as $cvData) {
+            Cv::insert([
+                'file_name' => $cvData['fileName'],
+                'file_path' => $cvData['fileURL'],
+                'education_rating' => $cvData['educationRating'],
+                'gpa_rating' => $cvData['gpaRating'],
+                'job_rating' => $cvData['jobRating'],
+                'years_rating' => $cvData['yearsRating'],
+                'experience_rating' => $cvData['experienceRating'],
+                'skill_rating' => $cvData['skillRating'],
+                'soft_skill_rating' => $cvData['softSkillRating'],
+                'language_rating' => $cvData['languageRating'],
+                'analysis_id' => $analysisId,
+            ]);
+        }
+
+        return response()->json(['message' => 'Analysis created'], 201);
     }
 }

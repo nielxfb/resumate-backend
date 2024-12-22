@@ -15,16 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->dateTime('date');
-            $table->string('education_target');
-            $table->string('gpa_target');
-            $table->string('job_target');
-            $table->string('years_target');
-            $table->string('experience_target');
-            $table->string('skill_target');
-            $table->string('soft_skill_target');
-            $table->string('language_target');
-            $table->unsignedBigInteger('cv_id');
-            $table->foreign('cv_id')->references('id')->on('cvs');
+            $table->longText('education_target')->nullable();
+            $table->longText('gpa_target')->nullable();
+            $table->longText('job_target')->nullable();
+            $table->longText('years_target')->nullable();
+            $table->longText('experience_target')->nullable();
+            $table->longText('skill_target')->nullable();
+            $table->longText('soft_skill_target')->nullable();
+            $table->longText('language_target')->nullable();
             $table->timestamps();
         });
     }
