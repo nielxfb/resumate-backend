@@ -1,8 +1,9 @@
 {
     "version": 2,
-    "framework": null,
     "functions": {
-        "api/index.php": { "runtime": "vercel-php@0.6.0" }
+        "api/index.php": {
+            "runtime": "vercel-php@0.6.0"
+        }
     },
     "routes": [
         {
@@ -12,7 +13,7 @@
     ],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://resumate-backend.vercel.app",
         "APP_KEY": "base64:3ijVau2RTgsAETgB9/qcOP+f8eZC8KcEs4GCq0iOhrU=",
 
