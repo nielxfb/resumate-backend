@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Analysis;
 use App\Models\Cv;
+use App\Models\ResumeFeature;
 use Illuminate\Http\Request;
 
 class CvController extends Controller
@@ -14,8 +16,15 @@ class CvController extends Controller
 
     public function getByAnalysisId(Request $request)
     {
+        $analysis = Analysis::find($request->analysisId);
         $cv = Cv::where('analysis_id', $request->analysisId)->get();
-        return response()->json($cv);
+        $resumeFeatures = ResumeFeature::where('analysis_id', $request->analysisId)->get();
+
+        return response()->json([
+            'analysis' => $analysis,
+            'cvs' => $cv,
+            'resumeFeatures' => $resumeFeatures
+        ]);
     }
 
     public function create(Request $request)
