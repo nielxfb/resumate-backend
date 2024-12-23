@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Analysis;
 use App\Models\Cv;
+use App\Models\ResumeFeature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -37,6 +38,22 @@ class AnalysisController extends Controller
         ]);
 
         $analysisId = Analysis::latest('id')->first()->id;
+
+        foreach ($request->resumeFeatures as $resumeFeatureData) {
+            ResumeFeature::insert([
+                'user_id' => $request->userId,
+                'date' => $request->date,
+                'education' => $resumeFeatureData['educations'],
+                'gpa' => $resumeFeatureData['gpa'],
+                'job' => $resumeFeatureData['jobTitles'],
+                'years' => $resumeFeatureData['yearsExperiences'],
+                'experience' => $resumeFeatureData['experiences'],
+                'skill' => $resumeFeatureData['skills'],
+                'soft_skill' => $resumeFeatureData['softSkills'],
+                'language' => $resumeFeatureData['languages'],
+                'analysis_id' => $analysisId,
+            ]);
+        }
 
         foreach ($request->cvs as $cvData) {
             Cv::insert([
