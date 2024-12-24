@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->dateTime('date');
+            $table->longText('name')->nullable();
+            $table->longText('phone')->nullable();
             $table->float('rating')->nullable();
             $table->longText('education')->nullable();
             $table->longText('gpa')->nullable();
