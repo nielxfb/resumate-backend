@@ -27,6 +27,8 @@ class AnalysisController extends Controller
         Analysis::insert([
             'user_id' => $request->userId,
             'date' => $request->date,
+            'name' => $request->name,
+            'phone' => $request->phone,
             'education_target' => $request->educationTarget,
             'gpa_target' => $request->gpaTarget,
             'job_target' => $request->jobTarget,
@@ -43,6 +45,8 @@ class AnalysisController extends Controller
             ResumeFeature::insert([
                 'user_id' => $request->userId,
                 'date' => $request->date,
+                'name' => $request->name,
+                'phone' => $request->phone,
                 'education' => $resumeFeatureData['educations'],
                 'gpa' => $resumeFeatureData['gpa'],
                 'job' => $resumeFeatureData['jobTitles'],
