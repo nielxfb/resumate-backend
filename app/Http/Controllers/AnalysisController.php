@@ -47,6 +47,7 @@ class AnalysisController extends Controller
                 'date' => $request->date,
                 'name' => $request->name,
                 'phone' => $request->phone,
+                'rating' => $resumeFeatureData['rating'],
                 'education' => $resumeFeatureData['educations'],
                 'gpa' => $resumeFeatureData['gpa'],
                 'job' => $resumeFeatureData['jobTitles'],
